@@ -1,7 +1,9 @@
 import React from 'react'
 import {
   Text,
-  View
+  View,
+  StyleSheet,
+  Dimensions
 } from 'react-native'
 
 import {
@@ -10,14 +12,19 @@ import {
 
 import store from '../redux/store'
 
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
+const viewHeight = height/4;
+
 const AllTodos = () => {
   const todos = useSelector(() => store.getState().todos);
-  console.log('todos', todos)
 
   const allTodos = todos.map((todo, ind) => (<Text key={ind++}> {todo} </Text>))
 
   return(
-    <View>
+    <View
+      style = {style.container}
+    >
       <Text>
         All Todos
       </Text>
@@ -28,5 +35,13 @@ const AllTodos = () => {
     </View>
   )
 }
+
+const style = StyleSheet.create({
+  container: {
+    backgroundColor: 'coral',
+    flex: 8,
+    marginBottom: 5
+  }  
+})
 
 export default AllTodos;

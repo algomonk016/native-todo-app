@@ -2,7 +2,12 @@ import React, { useState } from 'react'
 import {
   View,
   Text,
-  TextInput
+  TextInput,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView
 } from 'react-native'
 
 import {
@@ -24,16 +29,39 @@ const TodoInputField = () => {
   }
 
   return (
-    <View>
-      <TextInput
+    <View style = {styles.container}>
+      <TextInput 
+        style = {styles.textInput}
         value = {todo}
-        onChangeText = {setTodo}
-        placeholder = 'input text here'
+        onChangeText = {(text) => setTodo(text)}
+        placeholder = 'Write a task'
+        placeHolderTextColor = 'coral'
+        // keyboardType= 'numeric'
       />
-
       <AddTodoButton onPress = {addTodoFunction} />
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  textInput: {
+    height: 50,
+    width: 250,
+    backgroundColor: 'transparent',
+    flex: 5,
+    borderRadius: 10,
+    paddingLeft: 10,
+    color: '#ff4c00',
+    marginRight: 10,
+    borderWidth: 1,
+    borderColor: 'coral'
+  },
+  container: {
+    padding: 0,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  }
+});
 
 export default TodoInputField

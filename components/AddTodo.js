@@ -1,7 +1,8 @@
 import React from 'react'
 import {
   View,
-  Text
+  Text,
+  StyleSheet
 } from 'react-native'
 import {
   TodoInputField,
@@ -10,13 +11,15 @@ import {
 
 const AddTodo = () => {
   return (
-    <View>
-      <Text>
-        This is add todo
-      </Text>
-
+    <View style = {style.container}>
       <TodoInputField />
     </View>
   )
 }
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+  }
+})
 export default AddTodo
