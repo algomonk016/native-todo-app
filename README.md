@@ -1,2 +1,2 @@
 # TODO APP 
-> build using ReactNative
+> build using ReactNative + react-redux
