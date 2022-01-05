@@ -3,7 +3,8 @@ import {
   Text,
   View,
   StyleSheet,
-  Dimensions
+  Dimensions,
+  FlatList,
 } from 'react-native'
 
 import {
@@ -11,37 +12,64 @@ import {
 } from 'react-redux'
 
 import store from '../redux/store'
-
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height;
-const viewHeight = height/4;
+import {
+  Todo
+} from './'
 
 const AllTodos = () => {
   const todos = useSelector(() => store.getState().todos);
 
-  const allTodos = todos.map((todo, ind) => (<Text key={ind++}> {todo} </Text>))
+  const markComplete = (e) => {
+    console.log('clicked on', e)
+  }
+
+  const allTodos = todos.map((todo, ind = 0) => (
+    <Todo key={ind++} text = {todo} onPress = {() => markComplete(ind)}  />
+  ))
+
+  const renderItem = ({ item, index }) => {
+    return (
+      <Todo text = {item} onPress = {() => markComplete(index)} />
+    )
+  }
 
   return(
     <View
       style = {style.container}
     >
-      <Text>
-        All Todos
-      </Text>
-
-      <View>
-        {allTodos}
+      <View style = {style.headingContainer}>
+        <Text style = {style.heading}> All Todos </Text>
       </View>
+
+      <FlatList 
+        data = {todos}
+        renderItem = {(item, index) => renderItem(item, index)}
+        keyExtractor = {(item, ind) => ind}
+      />
+
     </View>
   )
 }
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: 'coral',
     flex: 8,
     marginBottom: 5
-  }  
+  },
+  heading: {
+    fontSize: 25,
+  },
+  headingContainer: {
+    borderBottomWidth: 2,
+    borderBottomColor: 'red',
+    paddingVertical: 5,
+    borderRadius: 10,
+    paddingLeft: 10,
+    marginBottom: 10
+  },
+  list: {
+    flex: 1,
+  }
 })
 
 export default AllTodos;
